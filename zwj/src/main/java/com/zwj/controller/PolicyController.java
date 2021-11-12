@@ -1,6 +1,8 @@
 package com.zwj.controller;
 
 
+import com.zwj.util.CommonResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;

@@ -2,49 +2,55 @@ package com.zwj.config;
 
 
 
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Swagger2配置
+ */
 @Configuration
 @EnableSwagger2
+@ConfigurationProperties(prefix = "swagger")
 public class SwaggerConfig {
-    /**
-     * 创建API应用
-     * apiInfo() 增加API相关信息
-     * 通过select()函数返回一个ApiSelectorBuilder实例,用来控制哪些接口暴露给Swagger来展现，
-     * 本例采用指定扫描的包路径来定义指定要建立API的目录。
-     *
-     * @return
-     */
+
+    private static final String BASE_PACKAGE = "com.zwj.controller";
+    @Value("${swagger.enable}")
+    private boolean enableSwagger;
+
     @Bean
-    public Docket createRestApi() {
+    public Docket helloDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
+                //用于分组功能，也可以不配置
+                .groupName("zwj")
+                //注册整体api信息
                 .apiInfo(apiInfo())
+                //swagger功能是否启用，可以通过配置设置，也可以先写死
+                .enable(enableSwagger)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com/zwj/controller"))
-                .paths(PathSelectors.any())
+                //指定扫描的包
+                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
+                //设置此组只匹配admin/**的请求
+                .paths(PathSelectors.ant("/zwj/**"))
                 .build();
     }
 
-    /**
-     * 创建该API的基本信息（这些基本信息会展现在文档页面中）
-     * 访问地址：http://项目实际地址/swagger-ui.html
-     * @return
-     */
+
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("policy")
-                .description("更多请关注 博客园--朦胧的夜")
-                .termsOfServiceUrl("https://www.cnblogs.com/liconglong/")
-                .contact("lcl")
-                .version("1.0")
+        return new ApiInfoBuilder().title("policy")
+                .description("通用的CRUD")
+                .contact(new Contact("Van", "", ""))
+                .version("1.0.0")
                 .build();
     }
 

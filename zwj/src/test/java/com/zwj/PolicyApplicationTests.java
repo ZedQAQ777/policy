@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+
 @SpringBootTest
 class PolicyApplicationTests {
     @Autowired
@@ -15,5 +16,8 @@ class PolicyApplicationTests {
         final Policy policy = policyMapper.selectById("daf23aac-4307-11ec-a39a-fa163e761325");
         System.out.println(policy);
     }
+    @Test
+    void getVitalityTest(){
 
+    }
 }

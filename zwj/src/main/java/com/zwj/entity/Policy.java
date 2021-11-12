@@ -20,8 +20,6 @@ import lombok.NoArgsConstructor;
  * @since 2021-11-11
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @TableName("dpp_policy")
 @ApiModel(value = "Policy对象", description = "政策表")
 public class Policy implements Serializable {
