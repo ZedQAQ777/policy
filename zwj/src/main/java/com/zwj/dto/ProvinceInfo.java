@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class ProvinceInfo {
     private String Province;
     private Long PolicyNum;
-    private Integer Vitality;
+    private Long Vitality;
 }

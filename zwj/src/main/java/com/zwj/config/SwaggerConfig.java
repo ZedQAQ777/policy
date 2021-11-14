@@ -41,7 +41,7 @@ public class SwaggerConfig {
                 //指定扫描的包
                 .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
                 //设置此组只匹配admin/**的请求
-                .paths(PathSelectors.ant("/zwj/**"))
+                .paths(PathSelectors.any())
                 .build();
     }
 
