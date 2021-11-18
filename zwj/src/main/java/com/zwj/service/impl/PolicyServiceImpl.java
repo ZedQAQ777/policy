@@ -7,6 +7,7 @@ import com.zwj.entity.Policy;
 import com.zwj.mapper.PolicyMapper;
 import com.zwj.service.IPolicyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zwj.util.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,11 +46,10 @@ public class PolicyServiceImpl extends ServiceImpl<PolicyMapper, Policy> impleme
             Long policyNum = (Long) map.get("policy_num");
             ProvinceInfo provinceInfo = new ProvinceInfo(province,policyNum,getVitality(max,policyNum));
             provinceInfos.add(provinceInfo);
-
         }
         return provinceInfos;
     }
     private Long getVitality(long max, long cur){
-        return  cur/max*100;
+        return  Math.round(cur*1.0/max*100);
     }
 }

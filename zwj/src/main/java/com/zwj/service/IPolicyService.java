@@ -18,4 +18,5 @@ import java.util.ArrayList;
  */
 public interface IPolicyService extends IService<Policy> {
     public ArrayList<ProvinceInfo> getAllProvinceInfo(TimeInfo timeInfo);
+
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("通用返回信息类")
+@ApiModel("返回响应数据")
 public class CommonResult<T> {
         // 状态码
     @ApiModelProperty("状态码")
