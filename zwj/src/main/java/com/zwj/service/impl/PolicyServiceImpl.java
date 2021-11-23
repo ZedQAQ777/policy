@@ -7,12 +7,8 @@ import com.zwj.entity.Policy;
 import com.zwj.mapper.PolicyMapper;
 import com.zwj.service.IPolicyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zwj.util.CommonResult;
-import org.apache.ibatis.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -44,12 +40,15 @@ public class PolicyServiceImpl extends ServiceImpl<PolicyMapper, Policy> impleme
         }
         else max = (Long) maps.get(0).get("policy_num");
         for(Map<String, Object> map:maps){
-            if(map.get("province")==null||map.get("province")=="国务院"){
+            if(map.get("province")==null||map.get("province").equals("国务院")){
                 continue;
             }
             String province = (String) map.get("province");
             Long policyNum = (Long) map.get("policy_num");
-            ProvinceInfo provinceInfo = new ProvinceInfo(province,policyNum,getVitality(max,policyNum));
+            qw.clear();
+            qw.eq("province",province);
+            Long total = policyMapper.selectCount(qw);
+            ProvinceInfo provinceInfo = new ProvinceInfo(province,policyNum,getVitality(max,policyNum),(long) 0);
             provinceInfos.add(provinceInfo);
         }
         for(String province: provinces){
@@ -57,6 +56,10 @@ public class PolicyServiceImpl extends ServiceImpl<PolicyMapper, Policy> impleme
             provinceInfo.setProvince(province);
             if(!provinceInfos.contains(provinceInfo)){
                 provinceInfo.setPolicyNum((long)0);
+                qw.clear();
+                qw.eq("province",province);
+                Long total = policyMapper.selectCount(qw);
+                provinceInfo.setTotal(total);
                 provinceInfo.setVitality((long)0);
                 provinceInfos.add(provinceInfo);
             }
@@ -72,7 +75,7 @@ public class PolicyServiceImpl extends ServiceImpl<PolicyMapper, Policy> impleme
     private void initProvinces(){
         if(provinces==null){
             provinces = Arrays.asList(
-                    "河北省","山西省","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","台湾",
+                    "河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","台湾",
                     "内蒙古","广西","西藏","宁夏","新疆",
                     "北京","天津市","上海","重庆",
                     "香港","澳门"

@@ -14,6 +14,7 @@ public class ProvinceInfo {
     private String Province;
     private Long PolicyNum;
     private Long Vitality;
+    private Long total;
 
     @Override
     public boolean equals(Object o) {

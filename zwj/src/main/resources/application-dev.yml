@@ -8,3 +8,7 @@ spring:
 
 swagger.enable: true
 
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+

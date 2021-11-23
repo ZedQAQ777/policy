@@ -3,9 +3,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zwj.controller.PolicyController;
 import com.zwj.dto.ProvinceInfo;
 import com.zwj.dto.TimeInfo;
-import com.zwj.entity.Policy;
 import com.zwj.mapper.PolicyMapper;
-import com.zwj.service.IPolicyService;
 import com.zwj.util.CommonResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,8 +27,6 @@ public class ControllerTest {
         final CommonResult<List<ProvinceInfo>> result = policyController.listAll(timeInfo);
         System.out.println(result);
     }
-    @Autowired
-    PolicyMapper policyMapper;
     @Test
     public void getTotalTest(){
         final CommonResult<Long> result = policyController.getTotal("重庆");
