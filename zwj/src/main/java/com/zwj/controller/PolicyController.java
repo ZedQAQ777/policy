@@ -9,10 +9,12 @@ import com.zwj.service.IPolicyService;
 import com.zwj.util.CommonResult;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.Map;
  * @since 2021-11-11
  */
 @Api(tags = "生产者进程API接口")
+@Validated
 @RestController
 @RequestMapping("/policy")
 public class PolicyController {
@@ -52,7 +55,7 @@ public class PolicyController {
             @ApiImplicitParam(name = "province", value = "省份",
                     required = true, dataTypeClass = LocalDate.class),
     })
-    public CommonResult<Long> getTotal (String province) {
+    public CommonResult<Long> getTotal (@NotBlank(message = "省份不能为空")String province) {
         QueryWrapper<Policy> wrapper = new QueryWrapper<>();
         wrapper.eq("province",province);
         final Long count = policyService.count(wrapper);

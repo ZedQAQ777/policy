@@ -48,8 +48,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("policy")
-                .description("通用的CRUD")
-                .contact(new Contact("Van", "", ""))
+                .description("软工")
+                .contact(new Contact("zwj", "", ""))
                 .version("1.0.0")
                 .build();
     }
